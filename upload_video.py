@@ -5,6 +5,7 @@ import download_video
 import json
 from logger import logging
 from models import Movie, Video
+import os
 import send_movie
 import threading
 import time
@@ -74,5 +75,11 @@ def infinite_download():
         else:
             time.sleep(10)
 
+
+if os.path.exists(config.DOWNLOADDIR) and not os.path.exists(config.QUEUEFILE):
+    set_queue([])
+elif not os.path.exists(config.DOWNLOADDIR):
+    os.mkdir(config.DOWNLOADDIR)
+    set_queue([])
 
 infinite_loop = threading.Thread(name='infinite_loop', target=infinite_download)
