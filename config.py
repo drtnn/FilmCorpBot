@@ -9,7 +9,7 @@ BOTNAME = 'FilmCorpBot'
 API_ID = int(os.getenv('API_ID'))
 API_HASH = os.getenv('API_HASH')
 
-CURRENTDIR = f'{os.getcwd()}/'
+CURRENTDIR = os.getenv('CURRENTDIR') if os.getenv('CURRENTDIR') else f'{os.getcwd()}/'
 DOWNLOADDIR = CURRENTDIR + 'download/'
 SESSIONDIR = CURRENTDIR + 'session/'
 
