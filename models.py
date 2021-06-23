@@ -1,9 +1,10 @@
-import config
+from config import DATABASE_URL
 import peewee
 import requests
 from bs4 import BeautifulSoup as BS
 
-DB = peewee.MySQLDatabase(config.DB_NAME, user=config.DB_USER, password=config.DB_PASSWORD, host=config.DB_HOST)
+DB = peewee.PostgresqlDatabase(database=DATABASE_URL.database, host=DATABASE_URL.host, port=DATABASE_URL.port,
+                               user=DATABASE_URL.username, password=DATABASE_URL.password)
 
 
 class User(peewee.Model):
@@ -29,6 +30,7 @@ class User(peewee.Model):
         return f'First name – {self.first_name}, User ID – {self.user_id}, Username – {self.username}'
 
     class Meta:
+        db_table = "users"
         database = DB
 
 
@@ -76,6 +78,7 @@ class Movie(peewee.Model):
         return f'{"Сериал" if self.is_series else "Фильм"} {self.title}, {self.release_year}'
 
     class Meta:
+        db_table = "movies"
         database = DB
 
 
@@ -112,6 +115,7 @@ class Video(peewee.Model):
         return f'{self.movie}, {self.number} серия'
 
     class Meta:
+        db_table = "videos"
         database = DB
         order_by = ('number',)
 
