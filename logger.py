@@ -3,7 +3,7 @@ import logging
 import os
 import telebot
 
-if os.path.exists(config.LOGFILE):
+if not os.path.exists(config.LOGFILE):
     file = open(config.LOGFILE, 'a')  # Создание файла, если он отсутствовал
     file.close()
 
